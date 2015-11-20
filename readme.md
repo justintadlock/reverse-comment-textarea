@@ -1,5 +1,13 @@
-# Revert Comment Field Position
+# Reverse Comment Textarea
 
-Plugin to revert the "comment" field postion in the comment form output to what it was like pre-4.4 in WordPress.  This plugin positions the field just before the submit field.
+This plugin reverts the "comment" field (textarea) position in the comment form output to what it was like pre-4.4 in WordPress.  This plugin positions the textarea at the bottom but before the submit button.
 
-This is kind of a dirty hack to get it to work.  I've opened a ticket on WP Trac to address this: https://core.trac.wordpress.org/ticket/34731
+## Professional Support
+
+If you need professional plugin support from me, the plugin author, you can access the support forums at [Theme Hybrid](http://themehybrid.com/board/topics), which is a professional WordPress help/support site where I handle support for all my plugins and themes for a community of 60,000+ users (and growing).
+
+## Copyright and License
+
+This project is licensed under the [GNU GPL](http://www.gnu.org/licenses/old-licenses/gpl-2.0.html), version 2 or later.
+
+2015 &copy; [Justin Tadlock](http://justintadlock.com).
