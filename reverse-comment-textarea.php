@@ -6,7 +6,7 @@
  * Version:     1.0.0
  * Author:      Justin Tadlock
  * Author URI:  http://themehybrid.com
- * Text Domain: reverse-comment-field-position
+ * Text Domain: reverse-comment-textarea
  * Domain Path: /languages
  *
  * This program is free software; you can redistribute it and/or modify it under the terms of the GNU
