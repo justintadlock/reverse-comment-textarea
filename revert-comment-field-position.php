@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Revert Comment Field Position
- * Plugin URI:  http://themehybrid.com/plugins
+ * Plugin URI:  http://themehybrid.com/plugins/revert-comment-field-position
  * Description: Reverts the "comment" field position to below the other fields in the comment form.
  * Version:     1.0.0-dev
  * Author:      Justin Tadlock
@@ -27,112 +27,46 @@
  * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+# Load translation files.
+add_action( 'plugins_loaded', 'jtrcfp_i18n' );
+
+# Filter comment fields.
+add_filter( 'comment_form_fields', 'jtrcfp_comment_form_fields', 99 );
+
 /**
- * Singleton class for setting up the plugin.
+ * Loads translation files.
  *
  * @since  1.0.0
  * @access public
+ * @return void
  */
-final class JT_Revert_Comment_Field_Position {
+function jtrcfp_i18n() {
 
-	/**
-	 * Stores the comment field HTML.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @var    string
-	 */
-	public $comment_field = '';
-
-	/**
-	 * Returns the instance.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @return object
-	 */
-	public static function get_instance() {
-
-		static $instance = null;
-
-		if ( is_null( $instance ) ) {
-			$instance = new self;
-			$instance->setup_actions();
-		}
-
-		return $instance;
-	}
-
-	/**
-	 * Constructor method.
-	 *
-	 * @since  1.0.0
-	 * @access private
-	 * @return void
-	 */
-	private function __construct() {}
-
-	/**
-	 * Sets up main plugin actions and filters.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @return void
-	 */
-	private function setup_actions() {
-
-		// Internationalize the text strings used.
-		add_action( 'plugins_loaded', array( $this, 'i18n' ), 2 );
-
-		// Capture the comment field HTML.
-		add_filter( 'comment_form_field_comment', array( $this, 'capture_comment_field' ), 999 );
-
-		// Dirty hack to move the comment field.
-		add_filter( 'comment_form_submit_field', array( $this, 'hack_in_comment_field' ), 999 );
-	}
-
-	/**
-	 * Captures the comment field HTML and returns an empty string, which disables the comment 
-	 * field output.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @param  string  $field
-	 * @return string
-	 */
-	public function capture_comment_field( $field ) {
-
-		$this->comment_field = $field;
-
-		return '';
-	}
-
-	/**
-	 * A quick and dirty hack to output the comment field just before the submit field.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @param  string  $submit_field
-	 * @return string
-	 */
-	public function hack_in_comment_field( $submit_field ) {
-
-		if ( $this->comment_field )
-			$submit_field = $this->comment_field . $submit_field;
-
-		return $submit_field;
-	}
-
-	/**
-	 * Loads the translation files.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @return void
-	 */
-	public function i18n() {
-		load_plugin_textdomain( 'revert-comment-field-position', false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ). 'languages' );
-	}
+	load_plugin_textdomain( 'revert-comment-field-position', false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ). 'languages' );
 }
 
-JT_Revert_Comment_Field_Position::get_instance();
+/**
+ * Pushes the "comment" field (textarea) to the end of the comment form fields.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  array   $fields
+ * @return array
+ */
+function jtrcfp_comment_form_fields( $fields ) {
+
+	// If the comment field is set.
+	if ( isset( $fields['comment'] ) ) {
+
+		// Grab the comment field.
+		$comment_field = $fields['comment'];
+
+		// Remove the comment field from its current position.
+		unset( $fields['comment'] );
+
+		// Put the comment field at the end.
+		$fields['comment'] = $comment_field;
+	}
+
+	return $fields;
+}
