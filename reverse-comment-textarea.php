@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name: Revert Comment Field Position
- * Plugin URI:  http://themehybrid.com/plugins/revert-comment-field-position
+ * Plugin Name: Reverse Comment Textarea
+ * Plugin URI:  http://themehybrid.com/plugins/reverse-comment-textarea
  * Description: Reverts the "comment" field position to below the other fields in the comment form.
  * Version:     1.0.0-dev
  * Author:      Justin Tadlock
@@ -23,15 +23,15 @@
  * @version   1.0.0
  * @author    Justin Tadlock <justin@justintadlock.com>
  * @copyright Copyright (c) 2015, Justin Tadlock
- * @link      http://themehybrid.com/plugins/revert-comment-field-position
+ * @link      http://themehybrid.com/plugins/reverse-comment-textarea
  * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 # Load translation files.
-add_action( 'plugins_loaded', 'jtrcfp_i18n' );
+add_action( 'plugins_loaded', 'jtrct_i18n' );
 
 # Filter comment fields.
-add_filter( 'comment_form_fields', 'jtrcfp_comment_form_fields', 99 );
+add_filter( 'comment_form_fields', 'jtrct_comment_form_fields', 99 );
 
 /**
  * Loads translation files.
@@ -40,9 +40,9 @@ add_filter( 'comment_form_fields', 'jtrcfp_comment_form_fields', 99 );
  * @access public
  * @return void
  */
-function jtrcfp_i18n() {
+function jtrct_i18n() {
 
-	load_plugin_textdomain( 'revert-comment-field-position', false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ). 'languages' );
+	load_plugin_textdomain( 'reverse-comment-textarea', false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ). 'languages' );
 }
 
 /**
@@ -53,7 +53,7 @@ function jtrcfp_i18n() {
  * @param  array   $fields
  * @return array
  */
-function jtrcfp_comment_form_fields( $fields ) {
+function jtrct_comment_form_fields( $fields ) {
 
 	// If the comment field is set.
 	if ( isset( $fields['comment'] ) ) {
