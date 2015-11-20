@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Reverse Comment Textarea
  * Plugin URI:  http://themehybrid.com/plugins/reverse-comment-textarea
- * Description: Reverts the "comment" field position to below the other fields in the comment form.
+ * Description: Moves the textarea back to the bottom of the comment form.
  * Version:     1.0.0-dev
  * Author:      Justin Tadlock
  * Author URI:  http://themehybrid.com
